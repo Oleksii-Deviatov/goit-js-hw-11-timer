@@ -2,22 +2,14 @@ import './styles.css';
 
 class CountdownTimer {
   constructor({ selector, targetDate }) {
-    // this.selector = selector;
     this.targetDate = targetDate.getTime();
-    this.days = document.querySelector(`${selector} [data-value="days"]`);
-    this.hours = document.querySelector(`${selector}  [data-value="hours"]`);
-    this.mins = document.querySelector(`${selector}  [data-value="mins"]`);
-    this.secs = document.querySelector(`${selector}  [data-value="secs"]`);
+    this.timer = document.querySelector(selector);
+    this.days = this.timer.querySelector('[data-value="days"]');
+    this.hours = this.timer.querySelector('[data-value="hours"]');
+    this.mins = this.timer.querySelector('[data-value="mins"]');
+    this.secs = this.timer.querySelector('[data-value="secs"]');
     this.start();
   }
-
-  // refs = {
-  //   timer: document.querySelector(this.selector),
-  //   days: document.querySelector(`${this.selector} [data-value="days"]`),
-  //   hours: document.querySelector(`${this.selector}  [data-value="hours"]`),
-  //   mins: document.querySelector(`${this.selector}  [data-value="mins"]`),
-  //   secs: document.querySelector(`${this.selector}  [data-value="secs"]`),
-  // };
 
   start() {
     this.intervalId = setInterval(this.updateTimer, 1000);
