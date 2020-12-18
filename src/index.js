@@ -12,21 +12,42 @@ class CountdownTimer {
   }
 
   start() {
-    this.intervalId = setInterval(this.updateTimer, 1000);
+    if (this.getTime() <= 0) {
+      this.days.textContent = 0;
+      this.hours.textContent = 0;
+      this.mins.textContent = 0;
+      this.secs.textContent = 0;
+      return;
+    } else {
+      this.intervalId = setInterval(this.updateTimer, 1000);
+    }
   }
 
-  updateTimer = () => {
+  getTime() {
     const timeNow = Date.now();
     const time = this.targetDate - timeNow;
+    return time;
+  }
+
+  countTime() {
+    const time = this.getTime();
     const days = Math.floor(time / (1000 * 60 * 60 * 24));
     const hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const mins = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
     const secs = Math.floor((time % (1000 * 60)) / 1000);
+    return { hours, days, mins, secs };
+  }
 
-    this.days.textContent = days;
-    this.hours.textContent = hours;
-    this.mins.textContent = mins;
-    this.secs.textContent = secs;
+  updateTimer = () => {
+    if (this.getTime() <= 0) {
+      clearInterval(this.intervalId);
+      return;
+    }
+
+    this.days.textContent = this.countTime().days;
+    this.hours.textContent = this.countTime().hours;
+    this.mins.textContent = this.countTime().mins;
+    this.secs.textContent = this.countTime().secs;
   };
 }
 
